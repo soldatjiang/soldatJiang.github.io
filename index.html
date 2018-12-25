@@ -314,7 +314,7 @@
 <p>查看/usr/bin下gcc的链接情况</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">ls -l gcc</span><br></pre></td></tr></table></figure>
 <p>发现链接到gcc-7.3</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx 1 root root 5 12月 17 16:19 gcc -&gt; gcc-6</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx 1 root root 5 12月 17 16:19 gcc -&gt; gcc-7.3</span><br></pre></td></tr></table></figure>
 <p>先备份，修改/usr/bin下gcc和g++的软链接</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mv gcc gcc.bak</span><br><span class="line">sudo ln -s gcc-6 gcc</span><br><span class="line">sudo mv g++ g++.bak</span><br><span class="line">sudo ln -s g++-6 g++</span><br></pre></td></tr></table></figure>
 <p>查看gcc和g++版本号</p>
