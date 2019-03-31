@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/27/在服务器docker上使用tensorboard/1.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/12/27/在服务器docker上使用tensorboard/2.png">
-<meta property="og:updated_time" content="2019-03-31T15:21:12.698Z">
+<meta property="og:updated_time" content="2019-03-31T15:53:10.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在服务器docker上使用tensorboard">
 <meta name="twitter:description" content="实验室服务器在深度学习训练的时候需要用docker，为了在训练期间直观地看loss曲线，摸索了一下在服务器docker上使用tensorboard的方法，记录一下。 以最近跑的RefineNet训练脚本为例，模型Loss等信息通过summary写入logs文件夹 123# add summarytf.summary.scalar(&apos;model_loss&apos;, model_loss)tf.summar">
@@ -311,7 +311,7 @@
 <p>其中-v参数指定服务器上实际目录与docker容器中虚拟目录的映射关系，:前为实际目录，:后为虚拟目录</p>
 <p>运行训练脚本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py</span><br></pre></td></tr></table></figure>
-<p>打开另一个终端，开启相同镜像的docker容器，需要-p参数指定端口映射关系，这里开放6006端口</p>
+<p>打开另一个终端，开启相同镜像的docker容器，需要-p参数指定端口映射关系，这里开放6006端口，命令如下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --runtime=nvidia -v /home/js/Semantic-Segmentation-RefineNet-master/:/refinenet -p 0.0.0.0:6006:6006 tensorflow/tf-1.2.1:js</span><br></pre></td></tr></table></figure>
 <p>在容器中打开tensorboard（端口默认为6006）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=logs</span><br></pre></td></tr></table></figure>
