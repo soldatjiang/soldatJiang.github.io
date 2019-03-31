@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/27/在服务器docker上使用tensorboard/1.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/12/27/在服务器docker上使用tensorboard/2.png">
-<meta property="og:updated_time" content="2018-12-27T02:43:35.081Z">
+<meta property="og:updated_time" content="2019-03-31T15:21:12.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在服务器docker上使用tensorboard">
 <meta name="twitter:description" content="实验室服务器在深度学习训练的时候需要用docker，为了在训练期间直观地看loss曲线，摸索了一下在服务器docker上使用tensorboard的方法，记录一下。 以最近跑的RefineNet训练脚本为例，模型Loss等信息通过summary写入logs文件夹 123# add summarytf.summary.scalar(&apos;model_loss&apos;, model_loss)tf.summar">
@@ -312,7 +312,7 @@
 <p>运行训练脚本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py</span><br></pre></td></tr></table></figure>
 <p>打开另一个终端，开启相同镜像的docker容器，需要-p参数指定端口映射关系，这里开放6006端口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --runtime=nvidia -v /home/js/Semantic-Segmentation-RefineNet-master/:/refinenet p 0.0.0.0:6006:6006 tensorflow/tf-1.2.1:js</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --runtime=nvidia -v /home/js/Semantic-Segmentation-RefineNet-master/:/refinenet -p 0.0.0.0:6006:6006 tensorflow/tf-1.2.1:js</span><br></pre></td></tr></table></figure>
 <p>在容器中打开tensorboard（端口默认为6006）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=logs</span><br></pre></td></tr></table></figure>
 <p>输出以下信息</p>
@@ -448,7 +448,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -501,7 +501,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
