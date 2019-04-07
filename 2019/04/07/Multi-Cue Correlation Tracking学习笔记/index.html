@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="技术,">
+  <meta name="keywords" content="科研,">
 
 
 
@@ -80,35 +80,35 @@
 
 
 <meta name="description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(paper)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪器模型无法应对所有跟踪结果，在决策级对多跟踪器融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪器中选出可靠的作为跟踪结果 所有跟踪器基于DCF框架，检测区域与训练样本共享保证跟踪效率  方法">
-<meta name="keywords" content="技术">
+<meta name="keywords" content="科研">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Multi-Cue Correlation Tracking学习笔记">
 <meta property="og:url" content="http://yoursite.com/2019/04/07/Multi-Cue Correlation Tracking学习笔记/index.html">
 <meta property="og:site_name" content="soldatJiang的博客">
 <meta property="og:description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(paper)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪器模型无法应对所有跟踪结果，在决策级对多跟踪器融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪器中选出可靠的作为跟踪结果 所有跟踪器基于DCF框架，检测区域与训练样本共享保证跟踪效率  方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224535.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224549.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224716.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_230521.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231139.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231622.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231653.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231711.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231728.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231945.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_234259.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_000142.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103512.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103549.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103606.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103811.png">
-<meta property="og:updated_time" content="2019-04-07T09:17:45.971Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224535.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224549.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224716.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_230521.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231139.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231622.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231653.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231711.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231728.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231945.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_234259.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_000142.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103512.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103549.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103606.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103811.png">
+<meta property="og:updated_time" content="2019-04-07T09:24:52.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Multi-Cue Correlation Tracking学习笔记">
 <meta name="twitter:description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(paper)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪器模型无法应对所有跟踪结果，在决策级对多跟踪器融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪器中选出可靠的作为跟踪结果 所有跟踪器基于DCF框架，检测区域与训练样本共享保证跟踪效率  方法">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
 
 
 
@@ -330,48 +330,48 @@
 <p>即在余弦窗的基础上乘上颜色概率。</p>
 </li>
 <li><p>将特征拆分成{high, mid, low}三部分，七个跟踪器分别使用不同通道的特征，特征的组合方式共有$C_3^1+C_3^2+C_3^3=7$种，七个跟踪器使用的特征如下。</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"></p>
 </li>
 </ul>
 <h3 id="基于跟踪器间两两比较-pair-wise-的可靠程度得分"><a href="#基于跟踪器间两两比较-pair-wise-的可靠程度得分" class="headerlink" title="基于跟踪器间两两比较(pair-wise)的可靠程度得分"></a>基于跟踪器间两两比较(pair-wise)的可靠程度得分</h3><ul>
 <li><p>不同跟踪器的输出结果两两之间通过IOU比较相似程度，并用指数函数平滑。</p>
 <p>某个跟踪器结果与其他跟踪器越相似，跟踪结果越可靠</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224535.png" alt="Clip_20190406_224535"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224549.png" alt="Clip_20190406_224549"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224535.png" alt="Clip_20190406_224535"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224549.png" alt="Clip_20190406_224549"></p>
 <p>这样每个跟踪器都会有一个通过与其他跟踪器输出结果对比得到的可靠程度得分</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224716.png" alt="Clip_20190406_224716"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224716.png" alt="Clip_20190406_224716"></p>
 </li>
 <li><p>同时每个跟踪器的可靠程度得分应尽量稳定，用相对过去一段时间平均值波动程度来衡量稳定性。</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_230521.png" alt="Clip_20190406_230521"></p>
-<p>其中<img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231139.png" alt="Clip_20190406_231139"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_230521.png" alt="Clip_20190406_230521"></p>
+<p>其中<img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231139.png" alt="Clip_20190406_231139"></p>
 </li>
 <li><p>将时域稳定性计入跟踪可靠程度，对过去一段时间的可靠程度得分加权平均，对最近的结果赋予更大权值。</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231622.png" alt="Clip_20190406_231622"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231653.png" alt="Clip_20190406_231653"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231711.png" alt="Clip_20190406_231711"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231728.png" alt="Clip_20190406_231728"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231622.png" alt="Clip_20190406_231622"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231653.png" alt="Clip_20190406_231653"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231711.png" alt="Clip_20190406_231711"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231728.png" alt="Clip_20190406_231728"></p>
 </li>
 <li><p>互相比较得到最终可靠性为两者的商</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"></p>
 </li>
 </ul>
 <h3 id="跟踪器自身比较的可靠程度得分"><a href="#跟踪器自身比较的可靠程度得分" class="headerlink" title="跟踪器自身比较的可靠程度得分"></a>跟踪器自身比较的可靠程度得分</h3><p>通过轨迹平滑程度衡量跟踪器自身可靠性，轨迹平滑程度定义为</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"></p>
 <p>其中$D^t_{E_i}$为跟踪器结果中心相对上一帧的偏移</p>
-<script type="math/tex; mode=display">
-D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||</script><p>$\sigma_{E_i}​$为跟踪器宽高平均值。</p>
+<p>$$<br>D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||<br>$$</p>
+<p>$\sigma_{E_i}​$为跟踪器宽高平均值。</p>
 <p>自身可靠性得分定义为轨迹平滑程度的</p>
 <ul>
 <li><p>最终跟踪器可靠程度得分为两者线性组合</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"></p>
 </li>
 </ul>
 <h3 id="自适应模型更新策略"><a href="#自适应模型更新策略" class="headerlink" title="自适应模型更新策略"></a>自适应模型更新策略</h3><p>为防止遮挡等情况造成的模型污染，综合PSR和上文提到的跟踪器可靠程度评价跟踪到样本的可靠程度。</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"></p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"></p>
 <p>将跟踪样本可靠程度得分S与历史均值对比确定模型更新率。</p>
-<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/./Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></p>
+<p><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></p>
 
       
     </div>
@@ -389,7 +389,7 @@ D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||</script><p>$\sigma_{E_i}​$为跟�
       
         <div class="post-tags">
           
-            <a href="/tags/技术/" rel="tag"># 技术</a>
+            <a href="/tags/科研/" rel="tag"># 科研</a>
           
         </div>
       
@@ -500,7 +500,7 @@ D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||</script><p>$\sigma_{E_i}​$为跟�
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

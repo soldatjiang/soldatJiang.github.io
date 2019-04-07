@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)—附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
+<meta name="description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu 18.04搭建OpenCV+caffe环境运行PCN-FaceDetection">
 <meta property="og:url" content="http://yoursite.com/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/index.html">
 <meta property="og:site_name" content="soldatJiang的博客">
-<meta property="og:description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)—附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
+<meta property="og:description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-32-39.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-25_10-49-52.png">
@@ -99,7 +99,7 @@
 <meta property="og:updated_time" content="2018-12-25T09:09:01.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu 18.04搭建OpenCV+caffe环境运行PCN-FaceDetection">
-<meta name="twitter:description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)—附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
+<meta name="twitter:description" content="最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。 安装Nvidia显卡驱动点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。 安装cuda工具包打开终端，运行">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-32-39.png">
 
 
@@ -311,7 +311,7 @@
 
       
         <p>最近尝试在xubuntu18.04上运行了一下github上<a href="https://github.com/Jack-CV" target="_blank" rel="noopener">Jack-CV</a>/<strong>PCN-FaceDetection</strong>的例子，这个例子需要依赖opencv和caffe，在这里记录一下。</p>
-<h3 id="安装Nvidia显卡驱动"><a href="#安装Nvidia显卡驱动" class="headerlink" title="安装Nvidia显卡驱动"></a>安装Nvidia显卡驱动</h3><p>点击设置(Settings)—附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。<br><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-32-39.png" alt="Screenshot_2018-12-22_00-32-39"></p>
+<h3 id="安装Nvidia显卡驱动"><a href="#安装Nvidia显卡驱动" class="headerlink" title="安装Nvidia显卡驱动"></a>安装Nvidia显卡驱动</h3><p>点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。<br><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-32-39.png" alt="Screenshot_2018-12-22_00-32-39"></p>
 <h3 id="安装cuda工具包"><a href="#安装cuda工具包" class="headerlink" title="安装cuda工具包"></a>安装cuda工具包</h3><p>打开终端，运行命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-cuda-toolkit</span><br></pre></td></tr></table></figure></p>
 <h3 id="gcc降级"><a href="#gcc降级" class="headerlink" title="gcc降级"></a>gcc降级</h3><p>由于cuda-9.1仅支持gcc 6.0及以下版本，ubunutu 18.04预装版本为7.3</p>
 <p>故手动进行降级到gcc 6.0</p>
@@ -504,7 +504,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
