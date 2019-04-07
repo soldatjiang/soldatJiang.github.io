@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(link)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果 所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率方">
+<meta name="keywords" content="科研">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multi-Cue Correlation Tracking学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/07/Multi-Cue Correlation Tracking学习笔记/index.html">
+<meta property="og:site_name" content="soldatJiang的博客">
+<meta property="og:description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(link)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果 所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率方">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224535.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224549.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224716.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_230521.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231139.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231622.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231653.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231711.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231728.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_231945.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_234259.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_000142.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103512.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103549.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103606.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103811.png">
+<meta property="og:updated_time" content="2019-04-07T11:33:01.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Multi-Cue Correlation Tracking学习笔记">
+<meta name="twitter:description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(link)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果 所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率方">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190406_224108.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/07/Multi-Cue Correlation Tracking学习笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Multi-Cue Correlation Tracking学习笔记 | soldatJiang的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">soldatJiang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/Multi-Cue Correlation Tracking学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="soldatJiang">
+      <meta itemprop="description" content="一个有上进心的普通人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="soldatJiang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Multi-Cue Correlation Tracking学习笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-07 17:13:00 / Modified: 19:33:01" itemprop="dateCreated datePublished" datetime="2019-04-07T17:13:00+08:00">2019-04-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_Multi-Cue_Correlation_Filters_CVPR_2018_paper.pdf" target="_blank" rel="noopener">link</a>)，个人认为这个想法非常巧妙，简记如下。</p>
+<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><ul>
+<li>单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性</li>
+<li>在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果</li>
+<li>所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="使用不同特征的多跟踪模型"><a href="#使用不同特征的多跟踪模型" class="headerlink" title="使用不同特征的多跟踪模型"></a>使用不同特征的多跟踪模型</h3></li>
+<li><p>所有跟踪模型均为标准CF框架，改进之处在于在余弦窗的基础上添加了基于颜色直方图的逐像素color mask进一步减轻边缘效应。代码实现如下</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% color histogram (mask)</span></span><br><span class="line">       [likelihood_map] = getColourMap(im_patch_cf, bg_hist, fg_hist, p.n_bins, p.grayscale_sequence);</span><br><span class="line">       likelihood_map(<span class="built_in">isnan</span>(likelihood_map)) = <span class="number">0</span>;</span><br><span class="line">       likelihood_map = imResample(likelihood_map, p.cf_response_size);</span><br><span class="line">       <span class="comment">% likelihood_map normalization, and avoid too many zero values</span></span><br><span class="line">       likelihood_map = (likelihood_map + <span class="built_in">min</span>(likelihood_map(:)))/(<span class="built_in">max</span>(likelihood_map(:)) + <span class="built_in">min</span>(likelihood_map(:)));  </span><br><span class="line">       <span class="keyword">if</span> (sum(likelihood_map(:))/prod(p.cf_response_size)&lt;<span class="number">0.01</span>), likelihood_map = <span class="number">1</span>; <span class="keyword">end</span>    </span><br><span class="line">       likelihood_map = <span class="built_in">max</span>(likelihood_map, <span class="number">0.1</span>);  </span><br><span class="line">       <span class="comment">% apply color mask to sample(or hann_window)</span></span><br><span class="line">       hann_window =  hann_window_cosine .* likelihood_map;</span><br></pre></td></tr></table></figure>
+<p>即在余弦窗的基础上乘上颜色概率。</p>
+</li>
+<li>将特征拆分成{high, mid, low}三部分，七个跟踪模型分别使用不同通道的特征，特征的组合方式共有$C_3^1+C_3^2+C_3^3=7$种，七个跟踪模型使用的特征如下。表中MCCT是使用CNN特征的跟踪算法版本，MCCT-H是使用传统手工特征的版本。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"><h3 id="基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><a href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分" class="headerlink" title="基于跟踪模型间两两比较(pair-wise)的可靠程度得分"></a>基于跟踪模型间两两比较(pair-wise)的可靠程度得分</h3></li>
+<li>不同跟踪模型的输出结果两两之间通过IOU比较相似程度，并用指数函数平滑。<br>某个跟踪模型结果与其他跟踪模型越相似，跟踪结果越可靠<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224535.png" alt="Clip_20190406_224535"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224549.png" alt="Clip_20190406_224549"><br>这样每个跟踪模型都会有一个通过与其他跟踪模型输出结果对比得到的可靠程度得分<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224716.png" alt="Clip_20190406_224716"></li>
+<li>同时每个跟踪模型的可靠程度得分应尽量稳定，用相对过去一段时间平均值波动程度来衡量稳定性。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_230521.png" alt="Clip_20190406_230521"><br>其中<img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231139.png" alt="Clip_20190406_231139"></li>
+<li>将时域稳定性计入跟踪可靠程度，对过去一段时间的可靠程度得分加权平均，对最近的结果赋予更大权值。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231622.png" alt="Clip_20190406_231622"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231653.png" alt="Clip_20190406_231653"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231711.png" alt="Clip_20190406_231711"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231728.png" alt="Clip_20190406_231728"></li>
+<li>互相比较得到最终可靠性为两者的商<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"><h3 id="跟踪模型自身比较的可靠程度得分"><a href="#跟踪模型自身比较的可靠程度得分" class="headerlink" title="跟踪模型自身比较的可靠程度得分"></a>跟踪模型自身比较的可靠程度得分</h3>通过轨迹平滑程度衡量跟踪模型自身可靠性，轨迹平滑程度定义为<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"><br>其中$D^t_{E_i}$为跟踪模型结果中心相对上一帧的偏移<br>$$<br>D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||<br>$$<br>$\sigma_{E_i}​$为跟踪模型结果宽高平均值。<br>自身可靠性得分定义为轨迹平滑程度在一段时间内的均值<br>$$<br>R_{self}^t(E_i)=\frac 1N \sum_{\tau}W_{\tau}S^{\tau}_{E_i}<br>$$</li>
+<li>最终跟踪模型可靠程度得分为两者线性组合<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"><h3 id="自适应模型更新策略"><a href="#自适应模型更新策略" class="headerlink" title="自适应模型更新策略"></a>自适应模型更新策略</h3>为防止遮挡等情况造成的模型污染，综合PSR和上文提到的跟踪模型可靠程度评价跟踪到样本的可靠程度。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"><br>将跟踪样本可靠程度得分S与历史均值对比确定模型更新率。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/科研/" rel="tag"># 科研</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/27/在服务器docker上使用tensorboard/" rel="next" title="在服务器docker上使用tensorboard">
+                <i class="fa fa-chevron-left"></i> 在服务器docker上使用tensorboard
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">soldatJiang</p>
+              <div class="site-description motion-element" itemprop="description">一个有上进心的普通人</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思想"><span class="nav-number">1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用不同特征的多跟踪模型"><span class="nav-number">2.1.</span> <span class="nav-text">使用不同特征的多跟踪模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><span class="nav-number">2.2.</span> <span class="nav-text">基于跟踪模型间两两比较(pair-wise)的可靠程度得分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跟踪模型自身比较的可靠程度得分"><span class="nav-number">2.3.</span> <span class="nav-text">跟踪模型自身比较的可靠程度得分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自适应模型更新策略"><span class="nav-number">2.4.</span> <span class="nav-text">自适应模型更新策略</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">soldatJiang</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
