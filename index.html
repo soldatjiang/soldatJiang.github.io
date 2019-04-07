@@ -2,14 +2,23 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +29,6 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -36,50 +43,60 @@
 
 
 
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
 
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
 
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="一个有上进心的普通人">
+  <meta name="description" content="一个有上进心的普通人">
 <meta name="keywords" content="技术，成长，感悟">
 <meta property="og:type" content="website">
 <meta property="og:title" content="soldatJiang的博客">
@@ -93,39 +110,21 @@
 
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
 
 
-
+  
+  
   <link rel="canonical" href="http://yoursite.com/">
 
 
 
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
-
-  <title>soldatJiang的博客</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>soldatJiang的博客</title>
   
 
 
@@ -134,6 +133,35 @@
 
 
 
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
@@ -150,7 +178,7 @@
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
@@ -160,13 +188,12 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -174,35 +201,55 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
+        
+          
+          <li class="menu-item menu-item-home menu-item-active">
+
+    
+    
+    
       
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
 
       
+      
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -210,12 +257,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -228,6 +283,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -237,7 +294,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一个有上进心的普通人">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -252,31 +309,46 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/" itemprop="url">Multi-Cue Correlation Tracking学习笔记</a></h1>
+                
+                <a href="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/" class="post-title-link" itemprop="url">Multi-Cue Correlation Tracking学习笔记</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T17:13:00+08:00">
-                2019-04-07
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2019-04-07 17:13:00 / Modified: 19:33:01" itemprop="dateCreated datePublished" datetime="2019-04-07T17:13:00+08:00">2019-04-07</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
+            
             
           
 
@@ -304,27 +376,39 @@
       
         
           
-          终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(link)，个人认为这个想法非常巧妙，简记如下。
-主要思想
-单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性
-在跟踪中保持多条线索，每一帧从多
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_Multi-Cue_Correlation_Filters_CVPR_2018_paper.pdf" target="_blank" rel="noopener">link</a>)，个人认为这个想法非常巧妙，简记如下。</p>
+<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><ul>
+<li>单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性</li>
+<li>在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果</li>
+<li>所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="使用不同特征的多跟踪模型"><a href="#使用不同特征的多跟踪模型" class="headerlink" title="使用不同特征的多跟踪模型"></a>使用不同特征的多跟踪模型</h3></li>
+<li><p>所有跟踪模型均为标准CF框架，改进之处在于在余弦窗的基础上添加了基于颜色直方图的逐像素color mask进一步减轻边缘效应。代码实现如下</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% color histogram (mask)</span></span><br><span class="line">       [likelihood_map] = getColourMap(im_patch_cf, bg_hist, fg_hist, p.n_bins, p.grayscale_sequence);</span><br><span class="line">       likelihood_map(<span class="built_in">isnan</span>(likelihood_map)) = <span class="number">0</span>;</span><br><span class="line">       likelihood_map = imResample(likelihood_map, p.cf_response_size);</span><br><span class="line">       <span class="comment">% likelihood_map normalization, and avoid too many zero values</span></span><br><span class="line">       likelihood_map = (likelihood_map + <span class="built_in">min</span>(likelihood_map(:)))/(<span class="built_in">max</span>(likelihood_map(:)) + <span class="built_in">min</span>(likelihood_map(:)));  </span><br><span class="line">       <span class="keyword">if</span> (sum(likelihood_map(:))/prod(p.cf_response_size)&lt;<span class="number">0.01</span>), likelihood_map = <span class="number">1</span>; <span class="keyword">end</span>    </span><br><span class="line">       likelihood_map = <span class="built_in">max</span>(likelihood_map, <span class="number">0.1</span>);  </span><br><span class="line">       <span class="comment">% apply color mask to sample(or hann_window)</span></span><br><span class="line">       hann_window =  hann_window_cosine .* likelihood_map;</span><br></pre></td></tr></table></figure>
+<p>即在余弦窗的基础上乘上颜色概率。</p>
+</li>
+<li>将特征拆分成{high, mid, low}三部分，七个跟踪模型分别使用不同通道的特征，特征的组合方式共有$C_3^1+C_3^2+C_3^3=7$种，七个跟踪模型使用的特征如下。表中MCCT是使用CNN特征的跟踪算法版本，MCCT-H是使用传统手工特征的版本。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"><h3 id="基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><a href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分" class="headerlink" title="基于跟踪模型间两两比较(pair-wise)的可靠程度得分"></a>基于跟踪模型间两两比较(pair-wise)的可靠程度得分</h3></li>
+<li>不同跟踪模型的输出结果两两之间通过IOU比较相似程度，并用指数函数平滑。<br>某个跟踪模型结果与其他跟踪模型越相似，跟踪结果越可靠<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224535.png" alt="Clip_20190406_224535"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224549.png" alt="Clip_20190406_224549"><br>这样每个跟踪模型都会有一个通过与其他跟踪模型输出结果对比得到的可靠程度得分<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224716.png" alt="Clip_20190406_224716"></li>
+<li>同时每个跟踪模型的可靠程度得分应尽量稳定，用相对过去一段时间平均值波动程度来衡量稳定性。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_230521.png" alt="Clip_20190406_230521"><br>其中<img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231139.png" alt="Clip_20190406_231139"></li>
+<li>将时域稳定性计入跟踪可靠程度，对过去一段时间的可靠程度得分加权平均，对最近的结果赋予更大权值。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231622.png" alt="Clip_20190406_231622"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231653.png" alt="Clip_20190406_231653"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231711.png" alt="Clip_20190406_231711"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231728.png" alt="Clip_20190406_231728"></li>
+<li>互相比较得到最终可靠性为两者的商<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"><h3 id="跟踪模型自身比较的可靠程度得分"><a href="#跟踪模型自身比较的可靠程度得分" class="headerlink" title="跟踪模型自身比较的可靠程度得分"></a>跟踪模型自身比较的可靠程度得分</h3>通过轨迹平滑程度衡量跟踪模型自身可靠性，轨迹平滑程度定义为<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"><br>其中$D^t_{E_i}$为跟踪模型结果中心相对上一帧的偏移<br>$$<br>D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||<br>$$<br>$\sigma_{E_i}​$为跟踪模型结果宽高平均值。<br>自身可靠性得分定义为轨迹平滑程度在一段时间内的均值<br>$$<br>R_{self}^t(E_i)=\frac 1N \sum_{\tau}W_{\tau}S^{\tau}_{E_i}<br>$$</li>
+<li>最终跟踪模型可靠程度得分为两者线性组合<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"><h3 id="自适应模型更新策略"><a href="#自适应模型更新策略" class="headerlink" title="自适应模型更新策略"></a>自适应模型更新策略</h3>为防止遮挡等情况造成的模型污染，综合PSR和上文提到的跟踪模型可靠程度评价跟踪到样本的可靠程度。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"><br>将跟踪样本可靠程度得分S与历史均值对比确定模型更新率。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></li>
+</ul>
+
+          
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -355,6 +439,8 @@
 
   
   
+  
+
   
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
@@ -366,7 +452,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一个有上进心的普通人">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -381,31 +467,58 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/27/在服务器docker上使用tensorboard/" itemprop="url">在服务器docker上使用tensorboard</a></h1>
+                
+                <a href="/2018/12/27/在服务器docker上使用tensorboard/" class="post-title-link" itemprop="url">在服务器docker上使用tensorboard</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T10:41:00+08:00">
-                2018-12-27
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-12-27 10:41:00" itemprop="dateCreated datePublished" datetime="2018-12-27T10:41:00+08:00">2018-12-27</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-31 23:53:10" itemprop="dateModified" datetime="2019-03-31T23:53:10+08:00">2019-03-31</time>
+              
             
           </span>
 
           
 
           
+            
             
           
 
@@ -433,26 +546,40 @@
       
         
           
-          实验室服务器在深度学习训练的时候需要用docker，为了在训练期间直观地看loss曲线，摸索了一下在服务器docker上使用tensorboard的方法，记录一下。
-以最近跑的RefineNet训练脚本为例，模型Loss等信息通过summary写入logs文件夹
-123# add summarytf
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/在服务器docker上使用tensorboard/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>实验室服务器在深度学习训练的时候需要用docker，为了在训练期间直观地看loss曲线，摸索了一下在服务器docker上使用tensorboard的方法，记录一下。</p>
+<p>以最近跑的RefineNet训练脚本为例，模型Loss等信息通过summary写入logs文件夹</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add summary</span></span><br><span class="line">tf.summary.scalar(<span class="string">'model_loss'</span>, model_loss)</span><br><span class="line">tf.summary.scalar(<span class="string">'total_loss'</span>, total_loss)</span><br></pre></td></tr></table></figure>
+<p>开启一个TensorFlow镜像的docker容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --runtime=nvidia -v /home/js/Semantic-Segmentation-RefineNet-master/:/refinenet -v /home/datas/VOCdevkit/:/VOC tensorflow/tf-1.2.1:js</span><br></pre></td></tr></table></figure>
+<p>其中-v参数指定服务器上实际目录与docker容器中虚拟目录的映射关系，:前为实际目录，:后为虚拟目录</p>
+<p>运行训练脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py</span><br></pre></td></tr></table></figure>
+<p>打开另一个终端，开启相同镜像的docker容器，需要-p参数指定端口映射关系，这里开放6006端口，命令如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --runtime=nvidia -v /home/js/Semantic-Segmentation-RefineNet-master/:/refinenet -p 0.0.0.0:6006:6006 tensorflow/tf-1.2.1:js</span><br></pre></td></tr></table></figure>
+<p>在容器中打开tensorboard（端口默认为6006）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=logs</span><br></pre></td></tr></table></figure>
+<p>输出以下信息</p>
+<p><img src="/2018/12/27/在服务器docker上使用tensorboard/1.PNG" alt="1"></p>
+<p>打开本地浏览器，输入http://（服务器地址）:6006，即可观看tensorboard（貌似不收敛。。。）</p>
+<p><img src="/2018/12/27/在服务器docker上使用tensorboard/2.png" alt="2"></p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://blog.csdn.net/qq_20909377/article/details/79103113" target="_blank" rel="noopener">https://blog.csdn.net/qq_20909377/article/details/79103113</a></p>
+
+          
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -483,6 +610,8 @@
 
   
   
+  
+
   
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
@@ -494,7 +623,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一个有上进心的普通人">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -509,31 +638,46 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/" itemprop="url">ubuntu 18.04搭建OpenCV+caffe环境运行PCN-FaceDetection</a></h1>
+                
+                <a href="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/" class="post-title-link" itemprop="url">ubuntu 18.04搭建OpenCV+caffe环境运行PCN-FaceDetection</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T15:31:09+08:00">
-                2018-12-25
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-12-25 15:31:09 / Modified: 17:09:01" itemprop="dateCreated datePublished" datetime="2018-12-25T15:31:09+08:00">2018-12-25</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
+            
             
           
 
@@ -561,25 +705,85 @@
       
         
           
-          最近尝试在xubuntu18.04上运行了一下github上Jack-CV/PCN-FaceDetection的例子，这个例子需要依赖opencv和caffe，在这里记录一下。
-安装Nvidia显卡驱动点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+            <p>最近尝试在xubuntu18.04上运行了一下github上<a href="https://github.com/Jack-CV" target="_blank" rel="noopener">Jack-CV</a>/<strong>PCN-FaceDetection</strong>的例子，这个例子需要依赖opencv和caffe，在这里记录一下。</p>
+<h3 id="安装Nvidia显卡驱动"><a href="#安装Nvidia显卡驱动" class="headerlink" title="安装Nvidia显卡驱动"></a>安装Nvidia显卡驱动</h3><p>点击设置(Settings)–附加驱动(Additional Drivers)，选择NVIDIA显卡驱动，点击应用更改(Apply Changes)，即可完成安装。<br><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-32-39.png" alt="Screenshot_2018-12-22_00-32-39"></p>
+<h3 id="安装cuda工具包"><a href="#安装cuda工具包" class="headerlink" title="安装cuda工具包"></a>安装cuda工具包</h3><p>打开终端，运行命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-cuda-toolkit</span><br></pre></td></tr></table></figure></p>
+<h3 id="gcc降级"><a href="#gcc降级" class="headerlink" title="gcc降级"></a>gcc降级</h3><p>由于cuda-9.1仅支持gcc 6.0及以下版本，ubunutu 18.04预装版本为7.3</p>
+<p>故手动进行降级到gcc 6.0</p>
+<p>先安装gcc-6.0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc-6</span><br><span class="line">sudo apt install g++-6</span><br></pre></td></tr></table></figure>
+<p>查看/usr/bin下gcc的链接情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">ls -l gcc</span><br></pre></td></tr></table></figure>
+<p>发现链接到gcc-7.3</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx 1 root root 5 12月 17 16:19 gcc -&gt; gcc-7.3</span><br></pre></td></tr></table></figure>
+<p>先备份，修改/usr/bin下gcc和g++的软链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mv gcc gcc.bak</span><br><span class="line">sudo ln -s gcc-6 gcc</span><br><span class="line">sudo mv g++ g++.bak</span><br><span class="line">sudo ln -s g++-6 g++</span><br></pre></td></tr></table></figure>
+<p>查看gcc和g++版本号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -v</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-25_10-49-52.png" alt="Screenshot_2018-12-25_10-49-52"></p>
+<p>显示版本为6.5，说明gcc降级成功。</p>
+<h3 id="安装cudnn"><a href="#安装cudnn" class="headerlink" title="安装cudnn"></a>安装cudnn</h3><p>终端中运行nvcc -V命令，查看cuda版本，发现是9.1</p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_01-03-16.png" alt="Screenshot_2018-12-22_01-03-16"></p>
+<p>在<a href="https://developer.nvidia.com/rdp/cudnn-download登录账号，选择[cuDNN" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-download登录账号，选择[cuDNN</a> v7.1.3 (April 17, 2018), for CUDA 9.1]下载cuDNN Library for Linux</p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_01-05-10.png" alt="Screenshot_2018-12-22_01-05-10"></p>
+<p>解压tgz文件，将目录中include中的文件拷贝到/usr/include，将目录中lib64中的文件拷贝到/usr/lib</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd cuda/include</span><br><span class="line">sudo cp * /usr/include</span><br><span class="line">cd ../lib64</span><br><span class="line">sudo cp * /usr/lib</span><br></pre></td></tr></table></figure>
+<h3 id="编译安装opencv"><a href="#编译安装opencv" class="headerlink" title="编译安装opencv"></a>编译安装opencv</h3><p>安装编译安装OpenCV所需依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br><span class="line">sudo apt-get install cmake-qt-gui git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev</span><br><span class="line">sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</span><br></pre></td></tr></table></figure>
+<p>从OpenCV官网<a href="https://opencv.org/下载源码，我选择的是3.4.4版，选择Sources下载。" target="_blank" rel="noopener">https://opencv.org/下载源码，我选择的是3.4.4版，选择Sources下载。</a></p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-39-10.png" alt="Screenshot_2018-12-22_00-39-10"></p>
+<p>解压，在解压后的目录创建build文件夹，打开cmake, 设置源码和安装路径</p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-22_00-47-09.png" alt="Screenshot_2018-12-22_00-47-09"></p>
+<p>点两次Configure, 再点Generate，生成Makefile。</p>
+<p>进入解压后目录的build文件夹，开始编译opencv</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd $OPENCV_ROOT/build</span><br><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>将OpenCV库加入系统路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mousepad /etc/ld.so.conf.d/opencv.conf</span><br></pre></td></tr></table></figure>
+<p>加入/usr/local/lib，保存, 运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+<p>使配置生效。</p>
+<h3 id="编译caffe"><a href="#编译caffe" class="headerlink" title="编译caffe"></a>编译caffe</h3><p>从github中下载caffe源码，<a href="https://github.com/BVLC/caffe" target="_blank" rel="noopener">https://github.com/BVLC/caffe</a></p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-25_10-51-48.png" alt="Screenshot_2018-12-25_10-51-48"></p>
+<p>点击Download ZIP下载，下载后解压到一个位置，进入解压目录</p>
+<p>拷贝一份Makefile.config.example文件，重命名为Makefile.config</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp Makefile.config.example Makefile.config</span><br></pre></td></tr></table></figure>
+<p>编辑Makefile.config文件</p>
+<p>对第5行，第23行取消注释,使用cudnn编译，设置OpenCV版本为3</p>
+<p>注释掉第30行，对第33行取消注释</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CUDA directory contains bin/ and lib/ directories that we need.</span></span><br><span class="line"><span class="comment"># CUDA_DIR := /usr/local/cuda</span></span><br><span class="line"><span class="comment"># On Ubuntu 14.04, if cuda tools are installed via</span></span><br><span class="line"><span class="comment"># "sudo apt-get install nvidia-cuda-toolkit" then use this instead:</span></span><br><span class="line">CUDA_DIR := /usr</span><br></pre></td></tr></table></figure>
+<p>在第39行CUDA_ARCH选项中删去compute_20,code=sm_20和compute_20,code=sm_21 </p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> CUDA architecture setting: going with all of them.</span><br><span class="line"><span class="comment"># For CUDA &lt; 6.0, comment the *_50 through *_61 lines for compatibility.</span></span><br><span class="line"><span class="comment"># For CUDA &lt; 8.0, comment the *_60 and *_61 lines for compatibility.</span></span><br><span class="line"><span class="comment"># For CUDA &gt;= 9.0, comment the *_20 and *_21 lines for compatibility.</span></span><br><span class="line">CUDA_ARCH := -gencode arch=compute_30,code=sm_30 \</span><br><span class="line">		-gencode arch=compute_35,code=sm_35 \</span><br><span class="line">		-gencode arch=compute_50,code=sm_50 \</span><br><span class="line">		-gencode arch=compute_52,code=sm_52 \</span><br><span class="line">		-gencode arch=compute_60,code=sm_60 \</span><br><span class="line">		-gencode arch=compute_61,code=sm_61 \</span><br><span class="line">		-gencode arch=compute_61,code=compute_61</span><br></pre></td></tr></table></figure>
+<p>编辑好后在caffe根目录下运行make</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $CAFFEROOT</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>编译完成后，编译PCN-FaceDetection例子</p>
+<p>下载源码<a href="https://github.com/Jack-CV/PCN-FaceDetection" target="_blank" rel="noopener">https://github.com/Jack-CV/PCN-FaceDetection</a></p>
+<p>进入源码的code文件夹，编辑compile.sh, lib.sh, run.sh三个脚本文件</p>
+<p>在每个文件的第二行设置CAFFEROOT环境变量，设置为caffe的根目录路径</p>
+<p>以compile.sh为例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/usr/bin/en sh</span><br><span class="line">CAFFEROOT=/home/soldat/Program/caffe-master</span><br><span class="line">echo "rm "$1</span><br><span class="line">rm $1</span><br><span class="line">echo "compile "$1</span><br><span class="line">g++ -o $1 $1.cpp PCN.h libPCN.so -std=c++11 -O3 -D CPU_ONLY -I $CAFFEROOT/include/ -I $CAFFEROOT/.build_release/src/ -L $CAFFEROOT/build/lib/ -lcaffe -lglog -lboost_system -lprotobuf `pkg-config --cflags --libs opencv`</span><br><span class="line">echo "done"</span><br></pre></td></tr></table></figure>
+<p>编译运行picture, crop, video或fddb程序，以编译运行picture为例，从图片中检测人脸</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd $PCN_ROOT/code</span><br><span class="line">sh lib.sh</span><br><span class="line">sh compile.sh picture</span><br><span class="line">sh run.sh picture</span><br></pre></td></tr></table></figure>
+<p>运行结果如图</p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-25_11-10-43.png" alt="Screenshot_2018-12-25_11-10-43"></p>
+<p>运行video效果</p>
+<p><img src="/2018/12/25/ubuntu-18-04搭建OpenCV-caffe环境运行PCN-FaceDetection/Screenshot_2018-12-25_13-55-30.png" alt="Screenshot_2018-12-25_13-55-30"></p>
+
+          
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -610,6 +814,8 @@
 
   
   
+  
+
   
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
@@ -621,7 +827,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一个有上进心的普通人">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -636,31 +842,58 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/30/二等兵的信/" itemprop="url">二等兵的信</a></h1>
+                
+                <a href="/2018/01/30/二等兵的信/" class="post-title-link" itemprop="url">二等兵的信</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T14:24:56+08:00">
-                2018-01-30
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-01-30 14:24:56" itemprop="dateCreated datePublished" datetime="2018-01-30T14:24:56+08:00">2018-01-30</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-25 16:35:39" itemprop="dateModified" datetime="2018-12-25T16:35:39+08:00">2018-12-25</time>
+              
             
           </span>
 
           
 
           
+            
             
           
 
@@ -688,26 +921,31 @@
       
         
           
+            <p><img src="/2018/01/30/二等兵的信/20120510025344572.jpg" alt="20120510025344572"></p>
+<p>집 떠나와 열차타고 훈련소로 가는 날<br>부모님께 큰절하고 대문 밖을 나설 때<br>가슴 속에 무엇인가 아쉬움이 남지만<br>풀 한포기 친구 얼굴 모든 것이 새롭다<br>이제 다시 시작이다 젊은 날의 생이여</p>
+<p>친구들아 군대 가면 편지 꼭 해다오<br>그대들과 즐거웠던 날들을 잊지 않게<br>열차 시간 다가올 때 두 손 잡던 뜨거움<br>기적 소리 멀어지면 작아지는 모습들<br>이제 다시 시작이다 젊은 날의 꿈이여</p>
+<p>가슴 속에 무엇인가 아쉬움이 남지만<br>풀 한포기 친구 얼굴 모든 것이 새롭다<br>이제 다시 시작이다 젊은 날의 생이여<br>이제 다시 시작이다 젊은 날의 생이여<br>이제 다시 시작이다 젊은 날의 꿈이여</p>
+<p>中文歌词：</p>
+<p>离开家园，乘上列车，奔向训练所的日子，<br>告别双亲，走出家门之时，<br>虽然胸中怀着无限惜别之情，<br>周围的一草一木，亲友的音容笑貌，一切都显得那样新鲜。<br>就让年轻的生命，再次重新开始。<br>朋友，当你参军之后，千万记得给我写信啊！<br>为了不忘曾和你们一起度过的快乐时光。<br>发车时间越来越近，紧握掌心残留的温暖。<br>汽笛声声逐渐远去，凝望逐渐缩小的身影。<br>就让年轻的希望，再次重新开始。<br>看着自己被剪短的头发，最初还有些许害羞。<br>但镜中的身影，却又令人从心里都变得坚强。<br>攀上后山，是否就能看到家乡的村庄？<br>当军号声响彻静寂的夜空时，<br>满怀期望，轻轻将二等兵的家书折好寄出。<br>就让年轻的梦想，再次重新开始。</p>
+<p>歌曲链接：</p>
+<p><a href="http://bd.kuwo.cn/yinyue/5297112?from=baidu" target="_blank" rel="noopener">二等兵的信-金德熙</a></p>
+
           
-집 떠나와 열차타고 훈련소로 가는 날부모님께 큰절하고 대문 밖을 나설 때가슴 속에 무엇인가 아쉬움이 남지만풀 한포기 친구 얼굴 모든 것이 새롭다이제 다시 시작이다 젊은 날의 생이여
-친구들아 군대 가면 편지 꼭 해다오그대들과 즐거웠던 날들을 잊지 않게열차 시간 다가올 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/30/二等兵的信/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -740,6 +978,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
   
   
@@ -749,7 +989,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一个有上进心的普通人">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -764,31 +1004,46 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/26/开端/" itemprop="url">开端</a></h1>
+                
+                <a href="/2018/01/26/开端/" class="post-title-link" itemprop="url">开端</a>
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T23:05:33+08:00">
-                2018-01-26
-              </time>
+
+              
+                
+              
+
+              <time title="Created: 2018-01-26 23:05:33 / Modified: 23:07:55" itemprop="dateCreated datePublished" datetime="2018-01-26T23:05:33+08:00">2018-01-26</time>
             
 
             
+              
 
+              
             
           </span>
 
           
 
           
+            
             
           
 
@@ -816,26 +1071,25 @@
       
         
           
-          既然选择了远方，便只顾风雨兼程。
-好运
+            <p>既然选择了远方，便只顾风雨兼程。</p>
+<p>好运</p>
 
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/01/26/开端/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
+
+    
+
     
     
     
 
     
 
+    
+      
+    
     
 
     
@@ -868,9 +1122,6 @@
           </div>
           
 
-
-          
-
         </div>
         
           
@@ -884,63 +1135,76 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    
     <div class="sidebar-inner">
 
       
 
       
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">soldatJiang</p>
-              <p class="site-description motion-element" itemprop="description">一个有上进心的普通人</p>
+              <div class="site-description motion-element" itemprop="description">一个有上进心的普通人</div>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
+                <div class="site-state-item site-state-posts">
                 
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">标签</span>
+                  <a href="/archives/">
                 
-              </div>
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          
-
-          
-          
-
-          
-          
-
           
 
         </div>
-      </section>
+      </div>
 
       
 
@@ -948,6 +1212,7 @@
 
     </div>
   </aside>
+  
 
 
         
@@ -957,16 +1222,18 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">soldatJiang</span>
 
   
+
+  
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
 
 
 
@@ -974,12 +1241,13 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
 
 
 
 
         
+
 
 
 
@@ -1000,11 +1268,14 @@
 
     
 
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -1018,92 +1289,11 @@
 
 
 
-  
 
 
 
 
 
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
 
 
 
@@ -1117,8 +1307,29 @@
 
 
   
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
 
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
 
 
 
@@ -1126,32 +1337,8 @@
 
   
 
-  
 
-  
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  <script src="/js/next-boot.js?v=7.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -1169,8 +1356,46 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+
+
   
 
+  
+
+  
+
+  
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
