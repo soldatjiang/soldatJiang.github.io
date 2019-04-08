@@ -121,7 +121,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103549.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103606.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/Multi-Cue%20Correlation%20Tracking学习笔记/Clip_20190407_103811.png">
-<meta property="og:updated_time" content="2019-04-07T11:33:01.157Z">
+<meta property="og:updated_time" content="2019-04-08T08:38:34.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Multi-Cue Correlation Tracking学习笔记">
 <meta name="twitter:description" content="终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(link)，个人认为这个想法非常巧妙，简记如下。 主要思想 单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性 在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果 所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率方">
@@ -351,12 +351,24 @@
                 
               
 
-              <time title="创建时间：2019-04-07 17:13:00 / 修改时间：19:33:01" itemprop="dateCreated datePublished" datetime="2019-04-07T17:13:00+08:00">2019-04-07</time>
+              <time title="创建时间：2019-04-07 17:13:00" itemprop="dateCreated datePublished" datetime="2019-04-07T17:13:00+08:00">2019-04-07</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-08 16:38:34" itemprop="dateModified" datetime="2019-04-08T16:38:34+08:00">2019-04-08</time>
               
             
           </span>
@@ -391,20 +403,20 @@
 
       
         <p>终于克服拖延症开始写论文笔记了，这次读的是CVPR2018的Multi-Cue Correlation Tracking(<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_Multi-Cue_Correlation_Filters_CVPR_2018_paper.pdf" target="_blank" rel="noopener">link</a>)，个人认为这个想法非常巧妙，简记如下。</p>
-<h2 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h2><ul>
+<h1 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h1><ul>
 <li>单个跟踪模型模型无法应对所有跟踪结果，在决策级对多跟踪模型融合可以有效增强跟踪鲁棒性</li>
 <li>在跟踪中保持多条线索，每一帧从多个跟踪模型中选出可靠的作为跟踪结果</li>
-<li>所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="使用不同特征的多跟踪模型"><a href="#使用不同特征的多跟踪模型" class="headerlink" title="使用不同特征的多跟踪模型"></a>使用不同特征的多跟踪模型</h3></li>
+<li>所有跟踪模型基于DCF框架，检测区域与训练样本共享保证跟踪效率<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="使用不同特征的多跟踪模型"><a href="#使用不同特征的多跟踪模型" class="headerlink" title="使用不同特征的多跟踪模型"></a>使用不同特征的多跟踪模型</h2></li>
 <li><p>所有跟踪模型均为标准CF框架，改进之处在于在余弦窗的基础上添加了基于颜色直方图的逐像素color mask进一步减轻边缘效应。代码实现如下</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% color histogram (mask)</span></span><br><span class="line">       [likelihood_map] = getColourMap(im_patch_cf, bg_hist, fg_hist, p.n_bins, p.grayscale_sequence);</span><br><span class="line">       likelihood_map(<span class="built_in">isnan</span>(likelihood_map)) = <span class="number">0</span>;</span><br><span class="line">       likelihood_map = imResample(likelihood_map, p.cf_response_size);</span><br><span class="line">       <span class="comment">% likelihood_map normalization, and avoid too many zero values</span></span><br><span class="line">       likelihood_map = (likelihood_map + <span class="built_in">min</span>(likelihood_map(:)))/(<span class="built_in">max</span>(likelihood_map(:)) + <span class="built_in">min</span>(likelihood_map(:)));  </span><br><span class="line">       <span class="keyword">if</span> (sum(likelihood_map(:))/prod(p.cf_response_size)&lt;<span class="number">0.01</span>), likelihood_map = <span class="number">1</span>; <span class="keyword">end</span>    </span><br><span class="line">       likelihood_map = <span class="built_in">max</span>(likelihood_map, <span class="number">0.1</span>);  </span><br><span class="line">       <span class="comment">% apply color mask to sample(or hann_window)</span></span><br><span class="line">       hann_window =  hann_window_cosine .* likelihood_map;</span><br></pre></td></tr></table></figure>
 <p>即在余弦窗的基础上乘上颜色概率。</p>
 </li>
-<li>将特征拆分成{high, mid, low}三部分，七个跟踪模型分别使用不同通道的特征，特征的组合方式共有$C_3^1+C_3^2+C_3^3=7$种，七个跟踪模型使用的特征如下。表中MCCT是使用CNN特征的跟踪算法版本，MCCT-H是使用传统手工特征的版本。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"><h3 id="基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><a href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分" class="headerlink" title="基于跟踪模型间两两比较(pair-wise)的可靠程度得分"></a>基于跟踪模型间两两比较(pair-wise)的可靠程度得分</h3></li>
+<li>将特征拆分成{high, mid, low}三部分，七个跟踪模型分别使用不同通道的特征，特征的组合方式共有$C_3^1+C_3^2+C_3^3=7$种，七个跟踪模型使用的特征如下。表中MCCT是使用CNN特征的跟踪算法版本，MCCT-H是使用传统手工特征的版本。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224108.png" alt="Clip_20190406_224108"><h2 id="基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><a href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分" class="headerlink" title="基于跟踪模型间两两比较(pair-wise)的可靠程度得分"></a>基于跟踪模型间两两比较(pair-wise)的可靠程度得分</h2></li>
 <li>不同跟踪模型的输出结果两两之间通过IOU比较相似程度，并用指数函数平滑。<br>某个跟踪模型结果与其他跟踪模型越相似，跟踪结果越可靠<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224535.png" alt="Clip_20190406_224535"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224549.png" alt="Clip_20190406_224549"><br>这样每个跟踪模型都会有一个通过与其他跟踪模型输出结果对比得到的可靠程度得分<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_224716.png" alt="Clip_20190406_224716"></li>
 <li>同时每个跟踪模型的可靠程度得分应尽量稳定，用相对过去一段时间平均值波动程度来衡量稳定性。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_230521.png" alt="Clip_20190406_230521"><br>其中<img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231139.png" alt="Clip_20190406_231139"></li>
 <li>将时域稳定性计入跟踪可靠程度，对过去一段时间的可靠程度得分加权平均，对最近的结果赋予更大权值。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231622.png" alt="Clip_20190406_231622"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231653.png" alt="Clip_20190406_231653"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231711.png" alt="Clip_20190406_231711"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231728.png" alt="Clip_20190406_231728"></li>
-<li>互相比较得到最终可靠性为两者的商<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"><h3 id="跟踪模型自身比较的可靠程度得分"><a href="#跟踪模型自身比较的可靠程度得分" class="headerlink" title="跟踪模型自身比较的可靠程度得分"></a>跟踪模型自身比较的可靠程度得分</h3>通过轨迹平滑程度衡量跟踪模型自身可靠性，轨迹平滑程度定义为<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"><br>其中$D^t_{E_i}$为跟踪模型结果中心相对上一帧的偏移<br>$$<br>D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||<br>$$<br>$\sigma_{E_i}​$为跟踪模型结果宽高平均值。<br>自身可靠性得分定义为轨迹平滑程度在一段时间内的均值<br>$$<br>R_{self}^t(E_i)=\frac 1N \sum_{\tau}W_{\tau}S^{\tau}_{E_i}<br>$$</li>
-<li>最终跟踪模型可靠程度得分为两者线性组合<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"><h3 id="自适应模型更新策略"><a href="#自适应模型更新策略" class="headerlink" title="自适应模型更新策略"></a>自适应模型更新策略</h3>为防止遮挡等情况造成的模型污染，综合PSR和上文提到的跟踪模型可靠程度评价跟踪到样本的可靠程度。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"><br>将跟踪样本可靠程度得分S与历史均值对比确定模型更新率。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></li>
+<li>互相比较得到最终可靠性为两者的商<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_231945.png" alt="Clip_20190406_231945"><h2 id="跟踪模型自身比较的可靠程度得分"><a href="#跟踪模型自身比较的可靠程度得分" class="headerlink" title="跟踪模型自身比较的可靠程度得分"></a>跟踪模型自身比较的可靠程度得分</h2>通过轨迹平滑程度衡量跟踪模型自身可靠性，轨迹平滑程度定义为<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190406_234259.png" alt="Clip_20190406_234259"><br>其中$D^t_{E_i}$为跟踪模型结果中心相对上一帧的偏移<br>$$<br>D_{E_i}^t=||c(B_{E_i}^t)-c(B_{E_i}^{t-1})||<br>$$<br>$\sigma_{E_i}​$为跟踪模型结果宽高平均值。<br>自身可靠性得分定义为轨迹平滑程度在一段时间内的均值<br>$$<br>R_{self}^t(E_i)=\frac 1N \sum_{\tau}W_{\tau}S^{\tau}_{E_i}<br>$$</li>
+<li>最终跟踪模型可靠程度得分为两者线性组合<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_000142.png" alt="Clip_20190407_000142"><h2 id="自适应模型更新策略"><a href="#自适应模型更新策略" class="headerlink" title="自适应模型更新策略"></a>自适应模型更新策略</h2>为防止遮挡等情况造成的模型污染，综合PSR和上文提到的跟踪模型可靠程度评价跟踪到样本的可靠程度。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103512.png" alt="Clip_20190407_103512"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103549.png" alt="Clip_20190407_103549"><br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103606.png" alt="Clip_20190407_103606"><br>将跟踪样本可靠程度得分S与历史均值对比确定模型更新率。<br><img src="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/Clip_20190407_103811.png" alt="Clip_20190407_103811"></li>
 </ul>
 
       
@@ -584,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要思想"><span class="nav-number">1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用不同特征的多跟踪模型"><span class="nav-number">2.1.</span> <span class="nav-text">使用不同特征的多跟踪模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><span class="nav-number">2.2.</span> <span class="nav-text">基于跟踪模型间两两比较(pair-wise)的可靠程度得分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跟踪模型自身比较的可靠程度得分"><span class="nav-number">2.3.</span> <span class="nav-text">跟踪模型自身比较的可靠程度得分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自适应模型更新策略"><span class="nav-number">2.4.</span> <span class="nav-text">自适应模型更新策略</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主要思想"><span class="nav-number">1.</span> <span class="nav-text">主要思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用不同特征的多跟踪模型"><span class="nav-number">2.1.</span> <span class="nav-text">使用不同特征的多跟踪模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于跟踪模型间两两比较-pair-wise-的可靠程度得分"><span class="nav-number">2.2.</span> <span class="nav-text">基于跟踪模型间两两比较(pair-wise)的可靠程度得分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跟踪模型自身比较的可靠程度得分"><span class="nav-number">2.3.</span> <span class="nav-text">跟踪模型自身比较的可靠程度得分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自适应模型更新策略"><span class="nav-number">2.4.</span> <span class="nav-text">自适应模型更新策略</span></a></li></ol></li></ol></div>
             
 
           </div>
