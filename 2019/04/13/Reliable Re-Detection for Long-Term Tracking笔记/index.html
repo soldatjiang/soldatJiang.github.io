@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="论文链接: link Motivation 长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。 大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。 如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。  方法 基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性 对跟踪结果进行">
+<meta name="keywords" content="技术，成长，感悟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="soldatJiang的博客">
+<meta property="og:url" content="http://yoursite.com/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/index.html">
+<meta property="og:site_name" content="soldatJiang的博客">
+<meta property="og:description" content="论文链接: link Motivation 长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。 大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。 如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。  方法 基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性 对跟踪结果进行">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/04/13/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/13/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/13/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/13/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png">
+<meta property="og:updated_time" content="2019-04-13T07:44:12.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="soldatJiang的博客">
+<meta name="twitter:description" content="论文链接: link Motivation 长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。 大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。 如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。  方法 基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性 对跟踪结果进行">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/13/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | soldatJiang的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">soldatJiang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="soldatJiang">
+      <meta itemprop="description" content="一个有上进心的普通人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="soldatJiang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-13 15:45:34 / 修改时间：15:44:12" itemprop="dateCreated datePublished" datetime="2019-04-13T15:45:34+08:00">2019-04-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文链接: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8318608" target="_blank" rel="noopener">link</a></p>
+<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><ul>
+<li>长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。</li>
+<li>大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。</li>
+<li>如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。</li>
+</ul>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><ul>
+<li>基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性</li>
+<li>对跟踪结果进行可靠性检查(Reliability check)确定跟踪结果可靠程度来自适应更新模型</li>
+<li>对跟踪结果进行不可靠性检查(Unreliability check)来确定是否需要开启重检测</li>
+<li>在重检测中使用从粗到精的定位方式<h2 id="可靠性估计"><a href="#可靠性估计" class="headerlink" title="可靠性估计"></a>可靠性估计</h2>对于CF响应可靠性，选择使用PSR来衡量跟踪置信度。<br>$$<br>S_h^{(i)} = \frac{max(f_h^{(i)})-\mu_i}{\sigma_i}<br>$$<br>在跟踪过程中记录CF可靠性得分，放入集合$C_h={S_h^{(2)},S_h^{(3)},…,S_h^{(i)}}​$，计算均值$M_h​$，若新的一帧结果可靠性得分$S_h^{(i)}&lt;o_h \cdot M_h​$，则认为结果不可靠，不计入集合，即不可靠性检查。<br>而若可靠性得分$S_h^{(i)}&gt;\tau_h \dot M_h​$，则认为跟踪结果可靠，即可靠性检查。<br>对颜色响应可靠性，选择用目标内像素得分和与第一帧目标内像素得分和来衡量。<br>$$<br>S_c^{(i)}=\frac{\sum_u m^T \phi_i(u)}{\sum_u m^T \phi_1(u)}<br>$$<br>同理将历史颜色响应可靠性得分放入集合$C_c={S_c^{(2)},S_c^{(3)},…,S_c^{(i)}}​$，计算均值$M_c​$，若新的一帧结果可靠性得分$S_c^{(i)}&lt;o_c \cdot M_c​$,则认为跟踪结果不可靠，不计入集合，即不可靠性检查。<br>而若可靠性得分$S_c^{(i)}&gt;\tau_c \dot M_c​$，则认为跟踪结果可靠，即可靠性检查。<br>$\tau​$，$o​$均为预设阈值，$\tau&gt;c​$。</li>
+</ul>
+<h2 id="重检测模块"><a href="#重检测模块" class="headerlink" title="重检测模块"></a>重检测模块</h2><p>从代码来看，采取了类似粒子滤波的稀疏跟踪方法对重检测位置粗定位，再使用CF和颜色模型对目标进行精定位。重检测模型为一个目标模板集$D$，包含$N_p$个正样本组成的正样本集$D_+$和$N_n$个负样本组成的负样本集$D_-$。<br>若当前跟踪结果的CF响应和颜色响应均满足“不可靠性检查”，则开启重检测，先用粒子滤波模型找到目标候选位置，对每个目标候选位置，解出稀疏重建系数$\alpha=[\alpha_+ \alpha_-]$。<br>$$<br>\min_\alpha ||x-D\alpha||^2_2+\lambda ||\alpha||_1<br>$$<br>则目标候选位置$x_i$的可靠性可用重建误差衡量<br>$$<br>R_i=||x_i-D_-\alpha_-||^2_2-||x_i-D_+\alpha_+||^2_2<br>$$<br>即对负样本重建误差越大，对正样本重建误差越小，可靠性越大。<br>通过对可靠性排名，去除掉90%的粒子目标候选。对剩下的目标候选位置用跟踪模型进行检测（即CF响应与颜色响应的融合），目标候选的最终置信度如下:<br>$$<br>C_i = max(f^{(i)}) \cdot cos(\frac {\gamma}{W_t+H_t}||L_c^{(i)}-L_t||)<br>$$<br>$f^{(i)}$为跟踪器响应,  后一项惩罚过大位移。$||L_c^{(i)}- L_t||$为目标候选位置相对上一帧位置位移。<br>若最大置信度的跟踪结果满足“可靠性检查”，则选择作为新的跟踪位置，否则保持原有跟踪结果，并且自适应更新模型。</p>
+<h2 id="自适应模型更新"><a href="#自适应模型更新" class="headerlink" title="自适应模型更新"></a>自适应模型更新</h2><p>如果跟踪结果不满足“可靠性检查”，则开启自适应模型更新，具体规则如下<br><img src="/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png" alt="Clip_20190408_161259"><br>算法整体流程图如下：<br><img src="/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png" alt="Clip_20190408_160944"></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>扩大DCF搜索区域对跟踪效果的影响，可见扩大DCF搜索区域并不能提高跟踪效果，搜索区域在一个合适的范围达到最优值。</p>
+<p><img src="/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png" alt="Clip_20190410_162958"></p>
+<p>搜索区域中心从groundtruth中选取，以及从上一帧结果加随机扰动效果对比，证明从不同的搜索区域中选出最佳搜索区域确实能提高跟踪效果。</p>
+<p><img src="/2019/04/13/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png" alt="Clip_20190410_163305"></p>
+<h1 id="代码细节学习"><a href="#代码细节学习" class="headerlink" title="代码细节学习"></a>代码细节学习</h1><h2 id="如何获取重检测所用正负样本？"><a href="#如何获取重检测所用正负样本？" class="headerlink" title="如何获取重检测所用正负样本？"></a>如何获取重检测所用正负样本？</h2><p>对每个变换初始化参数$[x,y,scale,\theta,ar,\phi]^T$,通过多视图几何工具affparam2mat可转换为仿射变换的矩阵，使用仿射变换对样本进行采集。</p>
+<p>初始的变换参数可将在目标区域裁剪样本，并通过$scale$缩放到相应尺寸。</p>
+<p>在采集正样本时，在位置上添加标准差为1的随机扰动，代码如下</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">n = num_p;     <span class="comment">% Sampling Number</span></span><br><span class="line">param.param0 = <span class="built_in">zeros</span>(<span class="number">6</span>,n);     <span class="comment">% Affine Parameter Sampling</span></span><br><span class="line">param.param = <span class="built_in">zeros</span>(<span class="number">6</span>,n);</span><br><span class="line">param.param0 = <span class="built_in">repmat</span>(affparam2geom(param.est(:)), [<span class="number">1</span>,n]);</span><br><span class="line">randMatrix = <span class="built_in">randn</span>(<span class="number">6</span>,n);<span class="comment">%标准正态分布</span></span><br><span class="line">sigma = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>];</span><br><span class="line">param.param = param.param0 + randMatrix.*<span class="built_in">repmat</span>(sigma(:),[<span class="number">1</span>,n]);</span><br><span class="line">o = affparam2mat(param.param);     <span class="comment">% Extract or Warp Samples which are related to above affine parameters</span></span><br><span class="line">wimgs = warpimg(img, o, sz);</span><br><span class="line">m = prod(sz);</span><br><span class="line">X_pos = <span class="built_in">zeros</span>(m, n);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: n</span><br><span class="line">    X_pos(:,<span class="built_in">i</span>) = <span class="built_in">reshape</span>(wimgs(:,:,<span class="built_in">i</span>), m, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>在采集负样本时，在两个位置坐标上添加标准差为目标宽和高的随机扰动。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n = num_n;       <span class="comment">% Sampling Number</span></span><br><span class="line">param.param0 = <span class="built_in">zeros</span>(<span class="number">6</span>,n);      <span class="comment">% Affine Parameter Sampling</span></span><br><span class="line">param.param = <span class="built_in">zeros</span>(<span class="number">6</span>,n);</span><br><span class="line">param.param0 = <span class="built_in">repmat</span>(affparam2geom(param.est(:)), [<span class="number">1</span>,n]);</span><br><span class="line">randMatrix = <span class="built_in">randn</span>(<span class="number">6</span>,n);</span><br><span class="line">sigma = [<span class="built_in">round</span>(sz(<span class="number">2</span>)*param.est(<span class="number">3</span>)), <span class="built_in">round</span>(sz(<span class="number">1</span>)*param.est(<span class="number">3</span>)*p0), <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>];</span><br><span class="line">param.param = param.param0 + randMatrix.*<span class="built_in">repmat</span>(sigma(:),[<span class="number">1</span>,n]);</span><br></pre></td></tr></table></figure>
+<p>同时要去除目标区域内的样本，若样本中心在目标区域内，将样本中心赋值到目标区域边界。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%去除目标区域内的样本</span></span><br><span class="line">back = <span class="built_in">round</span>(sigma(<span class="number">1</span>)/<span class="number">4</span>);</span><br><span class="line">center = param.param0(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">left = center - back;</span><br><span class="line">right = center + back;</span><br><span class="line">nono = param.param(<span class="number">1</span>,:)&lt;=right&amp;param.param(<span class="number">1</span>,:)&gt;=center;</span><br><span class="line">param.param(<span class="number">1</span>,nono) = right;</span><br><span class="line">nono = param.param(<span class="number">1</span>,:)&gt;=left&amp;param.param(<span class="number">1</span>,:)&lt;center;</span><br><span class="line">param.param(<span class="number">1</span>,nono) = left;</span><br><span class="line"></span><br><span class="line">back = <span class="built_in">round</span>(sigma(<span class="number">2</span>)/<span class="number">4</span>);</span><br><span class="line">center = param.param0(<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">top = center - back;</span><br><span class="line">bottom = center + back;</span><br><span class="line">nono = param.param(<span class="number">2</span>,:)&lt;=bottom&amp;param.param(<span class="number">2</span>,:)&gt;=center;</span><br><span class="line">param.param(<span class="number">2</span>,nono) = bottom;</span><br><span class="line">nono = param.param(<span class="number">2</span>,:)&gt;=top&amp;param.param(<span class="number">2</span>,:)&lt;center;</span><br><span class="line">param.param(<span class="number">2</span>,nono) = top;</span><br></pre></td></tr></table></figure>
+<p>最终得到的样本集中每一列是一个样本<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">o = affparam2mat(param.param);    <span class="comment">%Extract or Warp Samples which are related to above affine parameters</span></span><br><span class="line">wimgs = warpimg(img, o, sz);</span><br><span class="line"></span><br><span class="line">m = prod(opt.tmplsize);</span><br><span class="line">X_neg = <span class="built_in">zeros</span>(m, n);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: n</span><br><span class="line">    X_neg(:,<span class="built_in">i</span>) = <span class="built_in">reshape</span>(wimgs(:,:,<span class="built_in">i</span>), m, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>在重检测时，在目标区域周围随机采样，采样半径初始设为20</p>
+<p>重检测模块的稀疏重建系数$\alpha$是通过稀疏分解工具箱Sparse Decomposition Toolbox中的mexLasso函数求解的。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[~, Y, param] = affineSample(double(imggray), pos, sz, opt, param);<span class="comment">%Y中每一列对应一个样本</span></span><br><span class="line">YY = normVector(Y);<span class="comment">%每一列用该列的范数归一化                                             </span></span><br><span class="line">AA_pos = normVector(A_pos);</span><br><span class="line">AA_neg = normVector(A_neg);</span><br><span class="line"><span class="comment">% represent each candidate with training template set</span></span><br><span class="line"><span class="comment">% 稀疏重建工具箱mexLasso</span></span><br><span class="line">paramSR.L = <span class="built_in">length</span>(YY(:,<span class="number">1</span>));                                    </span><br><span class="line">paramSR.lambda = <span class="number">0.01</span>;</span><br><span class="line"><span class="built_in">beta</span> = mexLasso(YY, [AA_pos AA_neg], paramSR);</span><br><span class="line"><span class="built_in">beta</span> = full(<span class="built_in">beta</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% the confidence value of each candidate</span></span><br><span class="line">rec_p = sum((YY - AA_pos*<span class="built_in">beta</span>(<span class="number">1</span>:<span class="built_in">size</span>(AA_pos,<span class="number">2</span>),:)).^<span class="number">2</span>);        </span><br><span class="line">rec_n = sum((YY - AA_neg*<span class="built_in">beta</span>(<span class="built_in">size</span>(AA_pos,<span class="number">2</span>)+<span class="number">1</span>:<span class="keyword">end</span>,:)).^<span class="number">2</span>);</span><br><span class="line">con = rec_p-rec_n; </span><br><span class="line"><span class="comment">%con = exp(0.01*(rec_p-rec_n)); </span></span><br><span class="line"></span><br><span class="line">[~, I] = <span class="built_in">sort</span>(con ,<span class="string">'descend'</span>);<span class="comment">%I是con从大到小排序的下标</span></span><br><span class="line">affParams = affparam2mat(param.param(:,I(<span class="number">1</span>:<span class="number">1</span>:opt.highest_num))); <span class="comment">% score highest 90%</span></span><br><span class="line"></span><br><span class="line">particle_pos(opt.highest_num, <span class="number">2</span>) = <span class="number">0</span>;       </span><br><span class="line">particle_pos(:,<span class="number">1</span>) = affParams(<span class="number">2</span>,:);</span><br><span class="line">particle_pos(:,<span class="number">2</span>) = affParams(<span class="number">1</span>,:);</span><br></pre></td></tr></table></figure>
+<p>每5帧更新一次重检测正负样本，正样本只更新一般，负样本全部更新</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[A_pos]</span> = <span class="title">updatePos</span><span class="params">(img, sz, param, num_p, A_pos)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">size</span>(img,<span class="number">3</span>)==<span class="number">3</span></span><br><span class="line">    img	= double(rgb2gray(img));</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    img	= double(img);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">n = num_p;                     <span class="comment">% Sampling Number</span></span><br><span class="line">param.param0 = <span class="built_in">zeros</span>(<span class="number">6</span>,n);     <span class="comment">% Affine Parameter Sampling</span></span><br><span class="line">param.param = <span class="built_in">zeros</span>(<span class="number">6</span>,n);</span><br><span class="line">param.param0 = <span class="built_in">repmat</span>(affparam2geom(param.est(:)), [<span class="number">1</span>,n]);</span><br><span class="line">randMatrix = <span class="built_in">randn</span>(<span class="number">6</span>,n);</span><br><span class="line">sigma = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>, <span class="number">.000</span>];</span><br><span class="line">param.param = param.param0 + randMatrix.*<span class="built_in">repmat</span>(sigma(:),[<span class="number">1</span>,n]);</span><br><span class="line"></span><br><span class="line">o = affparam2mat(param.param);     <span class="comment">% Extract or Warp Samples which are related to above affine parameters</span></span><br><span class="line">wimgs = warpimg(img, o, sz);</span><br><span class="line"></span><br><span class="line">m = prod(sz);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: n/<span class="number">2</span></span><br><span class="line">    A_pos(:,<span class="built_in">i</span>) = <span class="built_in">reshape</span>(wimgs(:,:,<span class="built_in">i</span>), m, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/Multi-Cue Correlation Tracking学习笔记/" rel="next" title="Multi-Cue Correlation Tracking学习笔记">
+                <i class="fa fa-chevron-left"></i> Multi-Cue Correlation Tracking学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">soldatJiang</p>
+              <div class="site-description motion-element" itemprop="description">一个有上进心的普通人</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可靠性估计"><span class="nav-number">2.1.</span> <span class="nav-text">可靠性估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重检测模块"><span class="nav-number">2.2.</span> <span class="nav-text">重检测模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自适应模型更新"><span class="nav-number">2.3.</span> <span class="nav-text">自适应模型更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码细节学习"><span class="nav-number">4.</span> <span class="nav-text">代码细节学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何获取重检测所用正负样本？"><span class="nav-number">4.1.</span> <span class="nav-text">如何获取重检测所用正负样本？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">soldatJiang</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
