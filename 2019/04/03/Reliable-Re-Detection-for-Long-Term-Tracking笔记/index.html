@@ -100,19 +100,19 @@
 <meta name="keywords" content="科研">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reliable Re-Detection for Long-Term Tracking笔记">
-<meta property="og:url" content="http://yoursite.com/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/index.html">
 <meta property="og:site_name" content="soldatJiang的博客">
 <meta property="og:description" content="论文链接: link Motivation 长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。 大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。 如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。  方法 基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性 对跟踪结果进行">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png">
-<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png">
 <meta property="og:updated_time" content="2019-04-13T07:50:32.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reliable Re-Detection for Long-Term Tracking笔记">
 <meta name="twitter:description" content="论文链接: link Motivation 长时跟踪中的主要问题在于，在当前帧跟踪结果不可靠时，如何重检测出一个更好地跟踪结果。 大部分长时跟踪算法没有检查重检测结果的可靠程度，会引起重检测器的污染。 如何确定跟踪结果可靠程度以防止更新造成模型污染，当跟踪结果不可靠时如何重检测目标是长时跟踪将要解决的问题。  方法 基于Staple，综合相关滤波和颜色响应两种响应判断跟踪结果可靠性 对跟踪结果进行">
-<meta name="twitter:image" content="http://yoursite.com/2019/04/03/Reliable%20Re-Detection%20for%20Long-Term%20Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png">
 
 
 
@@ -120,7 +120,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/">
 
 
 
@@ -295,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="soldatJiang">
@@ -402,11 +402,11 @@
 <li>在重检测中使用从粗到精的定位方式<h2 id="可靠性估计"><a href="#可靠性估计" class="headerlink" title="可靠性估计"></a>可靠性估计</h2>对于CF响应可靠性，选择使用PSR来衡量跟踪置信度。<br>$$<br>S_h^{(i)} = \frac{max(f_h^{(i)})-\mu_i}{\sigma_i}<br>$$<br>在跟踪过程中记录CF可靠性得分，放入集合$C_h={S_h^{(2)},S_h^{(3)},…,S_h^{(i)}}​$，计算均值$M_h​$，若新的一帧结果可靠性得分$S_h^{(i)}&lt;o_h \cdot M_h​$，则认为结果不可靠，不计入集合，即不可靠性检查。<br>而若可靠性得分$S_h^{(i)}&gt;\tau_h \dot M_h​$，则认为跟踪结果可靠，即可靠性检查。<br>对颜色响应可靠性，选择用目标内像素得分和与第一帧目标内像素得分和来衡量。<br>$$<br>S_c^{(i)}=\frac{\sum_u m^T \phi_i(u)}{\sum_u m^T \phi_1(u)}<br>$$<br>同理将历史颜色响应可靠性得分放入集合$C_c={S_c^{(2)},S_c^{(3)},…,S_c^{(i)}}​$，计算均值$M_c​$，若新的一帧结果可靠性得分$S_c^{(i)}&lt;o_c \cdot M_c​$,则认为跟踪结果不可靠，不计入集合，即不可靠性检查。<br>而若可靠性得分$S_c^{(i)}&gt;\tau_c \dot M_c​$，则认为跟踪结果可靠，即可靠性检查。<br>$\tau​$，$o​$均为预设阈值，$\tau&gt;c​$。</li>
 </ul>
 <h2 id="重检测模块"><a href="#重检测模块" class="headerlink" title="重检测模块"></a>重检测模块</h2><p>从代码来看，采取了类似粒子滤波的稀疏跟踪方法对重检测位置粗定位，再使用CF和颜色模型对目标进行精定位。重检测模型为一个目标模板集$D$，包含$N_p$个正样本组成的正样本集$D_+$和$N_n$个负样本组成的负样本集$D_-$。<br>若当前跟踪结果的CF响应和颜色响应均满足“不可靠性检查”，则开启重检测，先用粒子滤波模型找到目标候选位置，对每个目标候选位置，解出稀疏重建系数$\alpha=[\alpha_+ \alpha_-]$。<br>$$<br>\min_\alpha ||x-D\alpha||^2_2+\lambda ||\alpha||_1<br>$$<br>则目标候选位置$x_i$的可靠性可用重建误差衡量<br>$$<br>R_i=||x_i-D_-\alpha_-||^2_2-||x_i-D_+\alpha_+||^2_2<br>$$<br>即对负样本重建误差越大，对正样本重建误差越小，可靠性越大。<br>通过对可靠性排名，去除掉90%的粒子目标候选。对剩下的目标候选位置用跟踪模型进行检测（即CF响应与颜色响应的融合），目标候选的最终置信度如下:<br>$$<br>C_i = max(f^{(i)}) \cdot cos(\frac {\gamma}{W_t+H_t}||L_c^{(i)}-L_t||)<br>$$<br>$f^{(i)}$为跟踪器响应,  后一项惩罚过大位移。$||L_c^{(i)}- L_t||$为目标候选位置相对上一帧位置位移。<br>若最大置信度的跟踪结果满足“可靠性检查”，则选择作为新的跟踪位置，否则保持原有跟踪结果，并且自适应更新模型。</p>
-<h2 id="自适应模型更新"><a href="#自适应模型更新" class="headerlink" title="自适应模型更新"></a>自适应模型更新</h2><p>如果跟踪结果不满足“可靠性检查”，则开启自适应模型更新，具体规则如下<br><img src="/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png" alt="Clip_20190408_161259"><br>算法整体流程图如下：<br><img src="/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png" alt="Clip_20190408_160944"></p>
+<h2 id="自适应模型更新"><a href="#自适应模型更新" class="headerlink" title="自适应模型更新"></a>自适应模型更新</h2><p>如果跟踪结果不满足“可靠性检查”，则开启自适应模型更新，具体规则如下<br><img src="/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_161259.png" alt="Clip_20190408_161259"><br>算法整体流程图如下：<br><img src="/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190408_160944.png" alt="Clip_20190408_160944"></p>
 <h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><p>扩大DCF搜索区域对跟踪效果的影响，可见扩大DCF搜索区域并不能提高跟踪效果，搜索区域在一个合适的范围达到最优值。</p>
-<p><img src="/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png" alt="Clip_20190410_162958"></p>
+<p><img src="/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_162958.png" alt="Clip_20190410_162958"></p>
 <p>搜索区域中心从groundtruth中选取，以及从上一帧结果加随机扰动效果对比，证明从不同的搜索区域中选出最佳搜索区域确实能提高跟踪效果。</p>
-<p><img src="/2019/04/03/Reliable Re-Detection for Long-Term Tracking笔记/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png" alt="Clip_20190410_163305"></p>
+<p><img src="/2019/04/03/Reliable-Re-Detection-for-Long-Term-Tracking笔记/Clip_20190410_163305.png" alt="Clip_20190410_163305"></p>
 <h1 id="代码细节学习"><a href="#代码细节学习" class="headerlink" title="代码细节学习"></a>代码细节学习</h1><h2 id="如何获取重检测所用正负样本？"><a href="#如何获取重检测所用正负样本？" class="headerlink" title="如何获取重检测所用正负样本？"></a>如何获取重检测所用正负样本？</h2><p>对每个变换初始化参数$[x,y,scale,\theta,ar,\phi]^T$,通过多视图几何工具affparam2mat可转换为仿射变换的矩阵，使用仿射变换对样本进行采集。</p>
 <p>初始的变换参数可将在目标区域裁剪样本，并通过$scale$缩放到相应尺寸。</p>
 <p>在采集正样本时，在位置上添加标准差为1的随机扰动，代码如下</p>
