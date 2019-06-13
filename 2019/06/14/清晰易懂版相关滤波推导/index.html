@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="soldatJiang的博客">
 <meta property="og:description" content="读研期间做相关滤波视觉跟踪，读了很多相关滤波的论文，但是由于当年矩阵论和数字信号处理基础太菜，一直没搞明白相关滤波的闭合解是怎么推出来的，各种论文里面的推导都是直接给个结果，过程不详。最近终于搞明白了推导的过程和原理，在这里记录一下。我觉得应该是全网最清晰最易懂的相关滤波推导了。 如果不加说明，以下粗体字$\mathbf{x}$代表列向量，加帽$\hat{\mathbf{x}}$代表$\mathb">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-13T17:23:26.601Z">
+<meta property="og:updated_time" content="2019-06-13T17:31:22.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="清晰易懂版相关滤波推导">
 <meta name="twitter:description" content="读研期间做相关滤波视觉跟踪，读了很多相关滤波的论文，但是由于当年矩阵论和数字信号处理基础太菜，一直没搞明白相关滤波的闭合解是怎么推出来的，各种论文里面的推导都是直接给个结果，过程不详。最近终于搞明白了推导的过程和原理，在这里记录一下。我觉得应该是全网最清晰最易懂的相关滤波推导了。 如果不加说明，以下粗体字$\mathbf{x}$代表列向量，加帽$\hat{\mathbf{x}}$代表$\mathb">
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-06-14 00:52:40 / 修改时间：01:23:26" itemprop="dateCreated datePublished" datetime="2019-06-14T00:52:40+08:00">2019-06-14</time>
+              <time title="创建时间：2019-06-14 00:52:40 / 修改时间：01:31:22" itemprop="dateCreated datePublished" datetime="2019-06-14T00:52:40+08:00">2019-06-14</time>
             
 
             
@@ -376,16 +376,37 @@
 <p>如果不加说明，以下粗体字$\mathbf{x}$代表列向量，加帽$\hat{\mathbf{x}}$代表$\mathbf{x}$的傅里叶变换</p>
 <p>在推导之前首先回顾几个定理：</p>
 <p><strong>循环卷积定理</strong> 若$\mathbf{x}$的傅里叶变换为$\hat{\mathbf{x}}$，$\mathbf{y}$的傅里叶变换为$\hat{\mathbf{y}}$，则$\mathbf{x}$与$\mathbf{y}$的卷积$\mathbf{x}\otimes\mathbf{y}$的傅里叶变换为$\hat{\mathbf{x}}$与$\hat{\mathbf{y}}$的点积$\hat{\mathbf{x}}\odot\hat{\mathbf{y}}$。</p>
-<p><strong>帕斯瓦尔定理</strong><br>$$<br>||\mathbf{x}||^2=\frac{1}{N}||\hat{\mathbf{x}}||^2<br>$$<br>$N$为信号长度。</p>
+<p><strong>帕斯瓦尔定理</strong> </p>
+<script type="math/tex; mode=display">
+||\mathbf{x}||^2=\frac{1}{N}||\hat{\mathbf{x}}||^2</script><p>$N$为信号长度。</p>
 <p>还有一个小结论，<strong>信号的反序的傅里叶变换等于原信号傅里叶变换的共轭</strong></p>
-<p>证明一下，记$\mathbf{y}$为$\mathbf{x}$的反序，即$\mathbf{y}[k]=\mathbf{x}[N-k]$<br>$$<br>\hat{\mathbf{y}}[k]=\sum_{n=0}^{N-1}\mathbf{x}[N-n]e^{-j\frac{2\pi}{N}n}<br>$$<br>令$N-n=t$<br>$$<br>\hat{\mathbf{y}}[k]=\sum_{t=0}^{N-1}\mathbf{x}[t]e^{-j\frac{2\pi}{N}(N-t)}\<br>=\sum_{t=0}^{N-1}\mathbf{x}[t]e^{j\frac{2\pi}{N}t}=\hat{\mathbf{x}^{\ast}}[k]<br>$$</p>
-<p>在卷积操作中，信号要经过反褶操作，而信号的互相关没有经过反褶操作，因此则$\mathbf{x}$与$\mathbf{y}$的互相关$\mathbf{x}\ast\mathbf{y}$的傅里叶变换为$\hat{\mathbf{x}^{\ast}}$与$\hat{\mathbf{y}}$的点积$\hat{\mathbf{x}^{\ast}}\odot\hat{\mathbf{y}}$</p>
+<p>证明一下，记$\mathbf{y}$为$\mathbf{x}$的反序，即$\mathbf{y}[k]=\mathbf{x}[N-k]$</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{y}}[k]=\sum_{n=0}^{N-1}\mathbf{x}[N-n]e^{-j\frac{2\pi}{N}n}</script><p>令$N-n=t$</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{y}}[k]=\sum_{t=0}^{N-1}\mathbf{x}[t]e^{-j\frac{2\pi}{N}(N-t)}\\
+=\sum_{t=0}^{N-1}\mathbf{x}[t]e^{j\frac{2\pi}{N}t}=\hat{\mathbf{x}^{\ast}}[k]</script><p>在卷积操作中，信号要经过反褶操作，而信号的互相关没有经过反褶操作，因此则$\mathbf{x}$与$\mathbf{y}$的互相关$\mathbf{x}\ast\mathbf{y}$的傅里叶变换为$\hat{\mathbf{x}^{\ast}}$与$\hat{\mathbf{y}}$的点积$\hat{\mathbf{x}^{\ast}}\odot\hat{\mathbf{y}}$</p>
 <p>有了这几个定理，现在开始推导吧。</p>
-<p>相关滤波是要学习一个与$\mathbf{x}$维度相同的滤波器$\mathbf{h}$，使两者的互相关$\mathbf{h}\ast\mathbf{x}$尽量接近目标函数$\mathbf{y}$，使下面的目标函数最小。<br>$$<br>E(\mathbf{h})=||\mathbf{h}\ast\mathbf{x}-\mathbf{y}||^2+\lambda||\mathbf{h}||^2<br>$$<br>根据帕斯瓦尔定理，最小化上式相当于最小化<br>$$<br>E(\hat{\mathbf{h}})=||\hat{\mathbf{h}}\odot\hat{\mathbf{x}}-\hat{\mathbf{y}}||+\lambda||\mathbf{h}||^2<br>$$<br>把点积写成矩阵相乘的形式<br>$$<br>E(\hat{\mathbf{h}})=||diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}}||+\lambda||\mathbf{h}||^2<br>$$<br>往下推还需要知道几个结论<br>$$<br>||\mathbf{x}||^2=\mathbf{x}^H\mathbf{x}<br>$$<br>H表示共轭转置<br>$$<br>\frac{\partial \mathbf{x^TAx}}{\partial \mathbf{x}}=\mathbf{A+A^T}<br>$$</p>
-<p>$$<br>\frac{\partial \mathbf{x^T a}}{\partial \mathbf{x}}=\frac{\partial \mathbf{a^T x}}{\partial \mathbf{x}}=\mathbf{a}<br>$$</p>
-<p>接着往下推<br>$$<br>E(\hat{\mathbf})=(diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}})^H(diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}})+\lambda \mathbf{h}^H \mathbf{h}<br>$$<br>$$<br>E(\hat{\mathbf})=\hat{\mathbf{h}}^Hdiag(\hat{\mathbf{x}^\ast})diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{h}}^Hdiag(\hat{\mathbf{x}^\ast})\hat{\mathbf{y}}-\hat{\mathbf{y}}^Hdiag(\hat{\mathbf{x}})\hat{\mathbf{h}}+\hat{\mathbf{y}}^H\hat{\mathbf{y}}+\lambda \mathbf{h}^H\mathbf{h}<br>$$<br>将目标函数对$\hat{\mathbf{h}}$求偏导(共轭转置和转置不太一样，但是验证一下也是成立的)<br>$$<br>\frac{\partial E(\hat{\mathbf{h}})}{\partial \hat{\mathbf{h}}}=2diag(\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}})\hat{\mathbf{h}}-2diag(\hat{\mathbf{x}^{\ast}})\hat{\mathbf{y}}+2\lambda \hat{\mathbf{h}}<br>$$<br>令$\frac{\partial E(\hat{\mathbf{h}})}{\partial \hat{\mathbf{h}}}=0$，解得<br>$$<br>\hat{\mathbf{h}}=(diag(\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}})+\lambda I)^{-1}diag(\hat{\mathbf{x}^{\ast}})\hat{\mathbf{y}}<br>$$</p>
-<p>$$<br>\hat{\mathbf{h}}=\frac{\hat{\mathbf{x}^{\ast}}\odot\hat{\mathbf{y}}}{\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}}+\lambda}<br>$$</p>
-<p>这就是论文里常见的那个公式的由来了。</p>
+<p>相关滤波是要学习一个与$\mathbf{x}$维度相同的滤波器$\mathbf{h}$，使两者的互相关$\mathbf{h}\ast\mathbf{x}$尽量接近目标函数$\mathbf{y}$，使下面的目标函数最小。</p>
+<script type="math/tex; mode=display">
+E(\mathbf{h})=||\mathbf{h}\ast\mathbf{x}-\mathbf{y}||^2+\lambda||\mathbf{h}||^2</script><p>根据帕斯瓦尔定理，最小化上式相当于最小化</p>
+<script type="math/tex; mode=display">
+E(\hat{\mathbf{h}})=||\hat{\mathbf{h}}\odot\hat{\mathbf{x}}-\hat{\mathbf{y}}||+\lambda||\mathbf{h}||^2</script><p>把点积写成矩阵相乘的形式</p>
+<script type="math/tex; mode=display">
+E(\hat{\mathbf{h}})=||diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}}||+\lambda||\mathbf{h}||^2</script><p>往下推还需要知道几个结论</p>
+<script type="math/tex; mode=display">
+||\mathbf{x}||^2=\mathbf{x}^H\mathbf{x}</script><p>H表示共轭转置</p>
+<script type="math/tex; mode=display">
+\frac{\partial \mathbf{x^TAx}}{\partial \mathbf{x}}=\mathbf{A+A^T}</script><script type="math/tex; mode=display">
+\frac{\partial \mathbf{x^T a}}{\partial \mathbf{x}}=\frac{\partial \mathbf{a^T x}}{\partial \mathbf{x}}=\mathbf{a}</script><p>接着往下推</p>
+<script type="math/tex; mode=display">
+E(\hat{\mathbf})=(diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}})^{H}(diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{y}})+\lambda \mathbf{h}^H \mathbf{h}</script><script type="math/tex; mode=display">
+E(\hat{\mathbf})=\hat{\mathbf{h}}^{H}diag(\hat{\mathbf{x}^{\ast}}) diag(\hat{\mathbf{x}})\hat{\mathbf{h}}-\hat{\mathbf{h}}^{H} diag(\hat{\mathbf{x}^{\ast}})\hat{\mathbf{y}}-\hat{\mathbf{y}}^{H} diag(\hat{\mathbf{x}})\hat{\mathbf{h}}+\hat{\mathbf{y}}^H\hat{\mathbf{y}}+\lambda \mathbf{h}^{H}\mathbf{h}</script><p>将目标函数对$\hat{\mathbf{h}}$求偏导(共轭转置和转置不太一样，但是验证一下也是成立的)</p>
+<script type="math/tex; mode=display">
+\frac{\partial E(\hat{\mathbf{h}})}{\partial \hat{\mathbf{h}}}=2 diag(\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}})\hat{\mathbf{h}}-2 diag(\hat{\mathbf{x}^{\ast}})\hat{\mathbf{y}}+2\lambda \hat{\mathbf{h}}</script><p>令$\frac{\partial E(\hat{\mathbf{h}})}{\partial \hat{\mathbf{h}}}=0$，解得</p>
+<script type="math/tex; mode=display">
+\hat{\mathbf{h}}=(diag(\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}})+\lambda I)^{-1}diag(\hat{\mathbf{x}^{\ast}})\hat{\mathbf{y}}</script><script type="math/tex; mode=display">
+\hat{\mathbf{h}}=\frac{\hat{\mathbf{x}^{\ast}}\odot\hat{\mathbf{y}}}{\hat{\mathbf{x}^{\ast}}\odot{\hat{\mathbf{x}}}+\lambda}</script><p>这就是论文里常见的那个公式的由来了。</p>
 
       
     </div>
